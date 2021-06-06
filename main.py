@@ -1,5 +1,5 @@
 import pygame
-from Controllers.controller import MancalaController
+from GUI.controller import MancalaController
 
 def main():
   pygame.init()
