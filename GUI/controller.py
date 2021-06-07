@@ -1,13 +1,28 @@
 import pygame
+import enum
 from GUI.pocket import *
 from GUI.board import *
 
-PLAYERA = 0
-PLAYERB = 1
+class Player:
+    PLAYERA = 0
+    PLAYERB = 1
+
+class PlayerType:
+    AI = 0
+    HUMAN = 1
+    NETWORK = 2
+
+class GameType:
+    AI_HUMAN_MODE = 0
+    NETWORK_HUMAN_MODE = 1
+    HUMAN_MODE = 2
+    NETWORK_AI_MODE = 3
+    AI_AI_MODE = 4
+    
 
 class MancalaController:
     
-    def __init__(self):
+    def __init__(self, game_type:GameType=GameType.HUMAN_MODE):
         self.screen = pygame.display.set_mode((WIDTH,HEIGHT))
         self.myfont = pygame.font.SysFont('Comic Sans MS', 30)
         self.pockets = [
@@ -27,7 +42,9 @@ class MancalaController:
             Pocket("MA", (100,225), (0,0,0,0), self.myfont, 0)
         ]
         self.mancala_board = Board(self.screen, self.pockets)
-        self.player_number = PLAYERB
+        self.game_type = game_type
+        self.player_number = Player.PLAYERB
+        self.current_player_type = PlayerType.HUMAN
     
     def get_selected_pocket(self, pos) -> Pocket:
         for p in self.pockets:
@@ -48,21 +65,19 @@ class MancalaController:
                 if event.type == pygame.QUIT:
                     run = False
                 elif event.type == pygame.MOUSEBUTTONDOWN:
-                    self.process_pocket_click()
+                    if self.current_player_type == PlayerType.HUMAN: self.process_pocket_click()
     
     def notify_player_name(self):
         print(self.player_number)
     
     def check_extra_score(self, last_pocket:Pocket):
         if last_pocket.value != 0 and last_pocket.last_value == 0:
-            
             if last_pocket.name[0] == "B":
                 opponent_pocket_name = "A"
             elif last_pocket.name[0] == "A":
                 opponent_pocket_name = "B"
             else:
                 return
-
             val = last_pocket.value
             last_pocket.value = 0
             
@@ -81,24 +96,43 @@ class MancalaController:
 
     def get_current_player_number(self, pocket:Pocket):
         player_name = pocket.name[0]
-        return PLAYERA if player_name == "A" else PLAYERB
+        return Player.PLAYERA if player_name == "A" else Player.PLAYERB
     
-    def get_next_player_number(self, pocket):
+    def process_next_player_number(self, pocket):
         if pocket.name[0] != "M":
             self.player_number = (self.player_number + 1) %2
+            self.process_next_player_type()
+
+    def process_next_player_type(self):
+        if self.game_type == GameType.HUMAN_MODE:
+            self.current_player_type = PlayerType.HUMAN
+        elif self.game_type == GameType.AI_HUMAN_MODE:
+            if self.current_player_type == PlayerType.HUMAN: self.current_player_type = PlayerType.AI
+            else: self.current_player_type = PlayerType.HUMAN
+        elif self.game_type == GameType.NETWORK_HUMAN_MODE:
+            if self.current_player_type == PlayerType.HUMAN: self.current_player_type = PlayerType.NETWORK
+            else: self.current_player_type = PlayerType.HUMAN
                     
     def process_pocket_click(self):
         pos = pygame.mouse.get_pos()
         pocket = self.get_selected_pocket(pos)
         if pocket is not None and self.player_number == self.get_current_player_number(pocket): 
-            old_val = pocket.value
-            pocket.value = 0
-            pocket_index = self.pockets.index(pocket)
-            for _ in range(old_val):
-                pocket_index += 1
-                if pocket_index >= len(self.pockets): pocket_index -= len(self.pockets)
-                self.pockets[pocket_index].value += 1
-                self.mancala_board.render_board()
-            self.get_next_player_number(self.pockets[pocket_index])
-            self.check_extra_score(self.pockets[pocket_index])
-            self.notify_player_name()
+            self.process_move(pocket)
+    
+    def process_move(self, pocket:Pocket):
+        old_val = pocket.value
+        pocket.value = 0
+        pocket_index = self.pockets.index(pocket)
+        for _ in range(old_val):
+            pocket_index += 1
+            if pocket_index >= len(self.pockets): pocket_index -= len(self.pockets)
+            self.pockets[pocket_index].value += 1
+            self.mancala_board.render_board()
+        self.process_next_player_number(self.pockets[pocket_index])
+        self.check_extra_score(self.pockets[pocket_index])
+        self.notify_player_name()
+    
+    def callback_move(self, pocket_name):
+        pocket = self.get_pocket_by_name(pocket_name)
+        self.process_move(pocket)
+
