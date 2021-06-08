@@ -1,18 +1,25 @@
-import numpy as np
+import math
 from Enums import MaxMinPlayer
 
 class Node:
     def __init__(self) -> None:
-        self.parrentNode = None
-        self.children: list = None
-        self.maxMin = MaxMinPlayer.MAX_PLAYER
-        self.alpha = np.inf
-        self.beta = np.NINF
-        self.gameState = []
-        self.score = 0
+        self.parrentNode: Node = None
+        self.children: dict = None
+        self.playerType = MaxMinPlayer.MAX_PLAYER
+        self.alpha = math.inf
+        self.beta = -math.inf
+        self.gameState: list = None 
+    
+    @property
+    def getScore_playerA(self) -> int:
+        return self.gameState[6]
 
-    def evaluate_score(self):
+    @property
+    def getScore_playerB(self) -> int:
+        return self.gameState[-1]
+
+    def get_score(self) -> int:
         """
-        to be implemented
+        returns the score difference between player A and player B (opponent)
         """
-        return self.score
+        return self.gameState[6] - self.gameState[-1]
