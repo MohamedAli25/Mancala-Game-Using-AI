@@ -15,7 +15,7 @@ class TreeCreator:
         if treeDepth == 0:
             return
         node.children = {}
-        if node.playerType is MaxMinPlayer.MAX_PLAYER:
+        if node.playerType == MaxMinPlayer.MAX_PLAYER:
             for i in range(6):
                 if node.gameState[i] != 0:
                     newNode = Node()

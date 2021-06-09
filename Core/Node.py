@@ -12,13 +12,13 @@ class Node:
         # [4, 4, 4, 4, 4, 4, 0, 4, 4, 4, 4, 4, 4, 0]
         self.gameState: list = None
 
-    @property
-    def getScore_playerA(self) -> int:
-        return self.gameState[6]
-
-    @property
-    def getScore_playerB(self) -> int:
-        return self.gameState[-1]
+    # @property
+    # def getScore_playerA(self) -> int:
+    #     return self.gameState[6]
+    #
+    # @property
+    # def getScore_playerB(self) -> int:
+    #     return self.gameState[-1]
 
     def get_score(self) -> int:
         """
