@@ -10,9 +10,9 @@ class Player:
 
 
 class PlayerType:
-    AI = 0
-    HUMAN = 1
-    NETWORK = 2
+    AI = "AI"
+    HUMAN = "Human"
+    NETWORK = "Network"
 
 
 class GameType:
@@ -24,9 +24,13 @@ class GameType:
 
 
 class MancalaController:
-
-    def __init__(self, game_type: GameType = GameType.HUMAN_MODE):
-        self.screen = pygame.display.set_mode((WIDTH, HEIGHT))
+    
+    def __init__(self, game_type:GameType=GameType.HUMAN_MODE, 
+                    current_player_type:PlayerType = PlayerType.HUMAN,
+                    network_notify_cb = print,
+                    pA = "",
+                    pB = ""):
+        self.screen = pygame.display.set_mode((WIDTH,HEIGHT))
         self.myfont = pygame.font.SysFont('Comic Sans MS', 30)
         self.pockets = [
             Pocket("B1", (175 + 0 * 75, 185 + 82), (162, 264, 223, 316), self.myfont),
@@ -44,7 +48,8 @@ class MancalaController:
             Pocket("A1", (175 + 0 * 75, 185), (160, 187, 210, 229), self.myfont),
             Pocket("MA", (100, 225), (0, 0, 0, 0), self.myfont, 0)
         ]
-        self.mancala_board = Board(self.screen, self.pockets)
+        print("names", pA, pB)
+        self.mancala_board = Board(self.screen, self.myfont, pA, pB, self.pockets)
         self.game_type = game_type
         self.player_number = Player.PLAYERB
         self.current_player_type = PlayerType.HUMAN
@@ -135,6 +140,7 @@ class MancalaController:
             if pocket_index >= len(self.pockets): pocket_index -= len(self.pockets)
             self.pockets[pocket_index].value += 1
             self.mancala_board.render_board()
+        if self.current_player_type != PlayerType.NETWORK: self.notify_move(pocket.name)
         self.process_next_player_number(self.pockets[pocket_index])
         self.check_extra_score(self.pockets[pocket_index])
         self.notify_player_name()
