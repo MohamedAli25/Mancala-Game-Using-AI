@@ -1,3 +1,4 @@
+from Core.TreeCreator import TreeCreator
 from Node import Node
 
 
@@ -13,7 +14,7 @@ class SearchTree:
     def get_game_state(self):
         return self.currentNode.gameState
 
-# if __name__ == "__main__":
-#     s = SearchTree()
-#     print(s.currentNode.getScore_playerA)
-#     # print('Current Node game state:', s.get_game_state())
+if __name__ == "__main__":
+    s = SearchTree()
+    treeCreator = TreeCreator()
+    treeCreator.create_tree(s.currentNode)
