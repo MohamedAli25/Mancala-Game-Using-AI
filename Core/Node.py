@@ -4,13 +4,19 @@ from Enums import MaxMinPlayer
 
 class Node:
     def __init__(self) -> None:
-        self.parentNode: Node = None
-        self.children: dict = None
+        self.parrentNode: Node = None
+        self.children: list[Node] = None##list instead of dict
         self.playerType = MaxMinPlayer.MAX_PLAYER
-        self.alpha = math.inf
-        self.beta = -math.inf
-        # [4, 4, 4, 4, 4, 4, 0, 4, 4, 4, 4, 4, 4, 0]
-        self.gameState: list = None
+        self.alpha = -math.inf
+        self.beta = math.inf
+        self.gameState: list = None 
+        #############################################
+        self.bestMoveIndex : int =0
+        self.score :int =-1
+        #######################################
+    @property
+    def getScore_playerA(self) -> int:
+        return self.gameState[6]
 
     # @property
     # def getScore_playerA(self) -> int:
