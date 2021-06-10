@@ -1,24 +1,10 @@
-'''
-class pruning_alg :
 
-   ~Attributes :
-         Node
-
-   ~Methods :
-
-    # required output
-    # should print the chosen next optimal state /node after runnning minmax w alphabeta pruning alg
-    *get_next_node(node) -> node
-
-    # for debugging
-    # print alphas and betas for every node in the given tree
-    *check_correctness ()
-
-'''
 import sys
 from Node import Node
 from Enums import *
 import numpy as np
+from TreeCreator import TreeCreator 
+from Settings import Settings
 
 
 print(sys.getrecursionlimit())
@@ -34,7 +20,7 @@ class Pruner:
       def _run_pruning(self , current : Node):
 
             if current.children is not None:
-                  print(current.children , type(current.children))
+                 
                   for child in current.children:
                         #look ahead for leaf nodes
                         if child.children is not None :
@@ -47,16 +33,21 @@ class Pruner:
                               for leaf in current.children :
                                     self._update_node(current,leaf)
                                     #cutoff handling 
-                                    if current.alpha >= current.beta : break 
+                                    if current.alpha >= current.beta : 
+                                          print('cut1!')
+                                          break 
                               
                               #update alpha and beta for parent node 
                               self._update_parent_node (current)    
                               #cutoff handling 
-                              if current.parrentNode.alpha >= current.parrentNode.beta : break 
-                        #update alpha and beta for parent node 
-                        self._update_parent_node (current)    
-                        #cutoff handling 
-                        if current.alpha >= current.beta : break 
+                              if current.parrentNode.alpha >= current.parrentNode.beta :
+                                    print('cut2!')
+                                    break 
+                  #update alpha and beta for parent node 
+                  self._update_parent_node (current)    
+                  #cutoff handling 
+                        
+     
             return
 
       def _update_parent_node (self , current) : 
@@ -103,14 +94,18 @@ class Pruner:
 
 #driver 
 if __name__== '__main__' :
+      
       root = Node()
       n=[]
       for i in range(39) : 
             n.append(Node())
+      n[0].playerType = MaxMinPlayer.MIN_PLAYER
+      n[1].playerType = MaxMinPlayer.MIN_PLAYER
+      n[2].playerType = MaxMinPlayer.MIN_PLAYER
       root.children = n[0:3]
-      n[0].children = n[4:7]
-      n[1].children = n[7:9]
-      n[2].children = n[10:12]
+      n[0].children = n[3:6]
+      n[1].children = n[6:9]
+      n[2].children = n[9:12]
       n[0].parrentNode = root
       n[1].parrentNode = root
       n[2].parrentNode = root
@@ -119,12 +114,18 @@ if __name__== '__main__' :
             n[i].parrentNode = n[(i-3)//3]
       
       scores = [8,2,2,7,4,1,3,3,3,1,2,5,3,1,2,6,1,4,9,9,9,1,8,9,9,1,0]
-      print (len(scores))
+      
       for i in range (12,39):
             
             n[i].score =scores[i-12]
             n[i].parrentNode = n[((i-12)//3)+3 ]
+   
+     
+   
+       
+      
       pruner = Pruner(root)
+      
       
       print(root.alpha , root.beta)
       

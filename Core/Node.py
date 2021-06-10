@@ -10,10 +10,9 @@ class Node:
         self.alpha = -math.inf
         self.beta = math.inf
         self.gameState: list = None 
-        #############################################
-        self.bestMoveIndex : int =0
-        self.score :int =-1
-        #######################################
+        self.bestMoveIndex : int =None
+        self.score :int = None 
+       
     @property
     def getScore_playerA(self) -> int:
         return self.gameState[6]

@@ -1,6 +1,6 @@
-from Core.Enums import MaxMinPlayer
-from Core.Node import Node
-from Core.TreeCreator import TreeCreator
+from Enums import MaxMinPlayer
+from Node import Node
+from TreeCreator import TreeCreator
 
 
 class SearchTree:
@@ -21,22 +21,22 @@ class SearchTree:
         return self.currentNode.gameState
 
 
-# if __name__ == "__main__":
-#     searchTree = SearchTree()
-#     treeCreator = TreeCreator()
-#     treeCreator.create_tree(searchTree.currentNode)
-#     print(searchTree.currentNode.children)
-#     print(searchTree.get_game_state())
-#     print(searchTree.currentNode.playerType)
-#     searchTree.make_move(5)
-#     print(searchTree.currentNode.children)
-#     print(searchTree.get_game_state())
-#     print(searchTree.currentNode.playerType)
-#     searchTree.make_move(9)
-#     print(searchTree.currentNode.children)
-#     print(searchTree.get_game_state())
-#     print(searchTree.currentNode.playerType)
-#     searchTree.make_move(1)
-#     print(searchTree.currentNode.children)
-#     print(searchTree.get_game_state())
-#     print(searchTree.currentNode.playerType)
+if __name__ == "__main__":
+    searchTree = SearchTree()
+    treeCreator = TreeCreator()
+    treeCreator.create_tree(searchTree.currentNode)
+    print(searchTree.currentNode.children)
+    print(searchTree.get_game_state())
+    print(searchTree.currentNode.playerType)
+    searchTree.make_move(5)
+    print(searchTree.currentNode.children)
+    print(searchTree.get_game_state())
+    print(searchTree.currentNode.playerType)
+    searchTree.make_move(9)
+    print(searchTree.currentNode.children)
+    print(searchTree.get_game_state())
+    print(searchTree.currentNode.playerType)
+    searchTree.make_move(1)
+    print(searchTree.currentNode.children)
+    print(searchTree.get_game_state())
+    print(searchTree.currentNode.playerType)
