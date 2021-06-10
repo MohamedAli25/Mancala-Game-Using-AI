@@ -16,7 +16,7 @@ class Pruner:
 
         if current.children is not None:
 
-            for child in current.children:
+            for index , child in enumerate(current.children):
                 #look ahead for leaf nodes
                 if child.children is not None:
                     child.alpha = current.alpha
@@ -25,26 +25,26 @@ class Pruner:
                     self._run_pruning(child)
                 else:
                     # children of this node are leaves
-                    for leaf in current.children:
-                        self._update_node(current, leaf)
+                    for index,leaf in enumerate(current.children):
+                        self._update_node(index ,current, leaf)
                             #cutoff handling
                         if current.alpha >= current.beta:
                                 # print('cut1!')
                                 break
 
                     #update alpha and beta for parent node
-                    self._update_parent_node(current)
+                    self._update_parent_node(index , current)
                     #cutoff handling
                     if current.parrentNode.alpha >= current.parrentNode.beta:
                         # print('cut2!')
                         break
             #update alpha and beta for parent node
-            self._update_parent_node (current)
-            #cutoff handling
+            self._update_parent_node (index , current)
+            
 
         return
 
-    def _update_parent_node (self , current) :
+    def _update_parent_node (self ,index , current) :
 
         #update node's parent
         try :
@@ -59,10 +59,12 @@ class Pruner:
                     current.parrentNode.beta = self._update_beta(current.score,
                                                                     current.parrentNode.beta)
                     current.parrentNode.score = current.parrentNode.beta
+                
+                current.parrentNode.bestMoveIndex = index
         except :
                 pass
     
-    def _update_node (self , current,child) :
+    def _update_node (self ,index, current,child) :
 
         # update current node
         if current.playerType == MaxMinPlayer.MAX_PLAYER:
@@ -74,7 +76,8 @@ class Pruner:
                 # update beta if node is minimizer
                 current.beta = self._update_beta(child.score, current.beta)
                 current.score = current.beta
-
+        
+        current.bestMoveIndex = index
 
     def _update_beta(self, betanew, betaold):
         # modify beta if betanew< betaold
@@ -92,28 +95,28 @@ if __name__ == '__main__' :
     n = []
 
     #------TestCase1-----#
-    # for i in range(39) :
-    #       n.append(Node())
-    # n[0].playerType = MaxMinPlayer.MIN_PLAYER
-    # n[1].playerType = MaxMinPlayer.MIN_PLAYER
-    # n[2].playerType = MaxMinPlayer.MIN_PLAYER
-    # root.children = n[0:3]
-    # n[0].children = n[3:6]
-    # n[1].children = n[6:9]
-    # n[2].children = n[9:12]
-    # n[0].parrentNode = root
-    # n[1].parrentNode = root
-    # n[2].parrentNode = root
-    # for i in range(3,12) :
-    #       n[i].children = n[(12+(i-3)*3):(15+(i-3)*3)]
-    #       n[i].parrentNode = n[(i-3)//3]
+    for i in range(39) :
+          n.append(Node())
+    n[0].playerType = MaxMinPlayer.MIN_PLAYER
+    n[1].playerType = MaxMinPlayer.MIN_PLAYER
+    n[2].playerType = MaxMinPlayer.MIN_PLAYER
+    root.children = n[0:3]
+    n[0].children = n[3:6]
+    n[1].children = n[6:9]
+    n[2].children = n[9:12]
+    n[0].parrentNode = root
+    n[1].parrentNode = root
+    n[2].parrentNode = root
+    for i in range(3,12) :
+          n[i].children = n[(12+(i-3)*3):(15+(i-3)*3)]
+          n[i].parrentNode = n[(i-3)//3]
 
-    # scores = [8,2,2,7,4,1,3,3,3,1,2,5,3,1,2,6,1,4,9,9,9,1,8,9,9,1,0]
+    scores = [8,2,2,7,4,1,3,3,3,1,2,5,3,1,2,6,1,4,9,9,9,1,8,9,9,1,0]
 
-    # for i in range (12,39):
+    for i in range (12,39):
 
-    #       n[i].score =scores[i-12]
-    #       n[i].parrentNode = n[((i-12)//3)+3]
+          n[i].score =scores[i-12]
+          n[i].parrentNode = n[((i-12)//3)+3]
 
 
     #------------TestCase2-------------#
@@ -153,6 +156,7 @@ if __name__ == '__main__' :
     #     n[i].parrentNode = n[((i-14)//2)+2]
 
     pruner = Pruner(root)
-    print(root.alpha, root.beta)
-
+    print ("root",": [" , root.alpha , " , " , root.beta  , "]" , " ,index : " , root.bestMoveIndex)
+    for i in range (39) : 
+        print ("node ", i , ": [" , n[i].alpha , " , " , n[i].beta  , "]" , " ,index : " , n[i].bestMoveIndex)
 
