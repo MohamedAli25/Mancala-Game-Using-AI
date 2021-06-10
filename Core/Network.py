@@ -3,7 +3,7 @@ import threading
 
 
 class Network:
-     def __init__(self):
+    def __init__(self):
         self.HEADER = 64
         self.PORT = 5050
         self.IP = socket.gethostbyname(
@@ -15,7 +15,7 @@ class Network:
 
 class Server(Network):
 
-     def __init__(self):
+    def __init__(self):
         super().__init__()
         self.server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         print(self.ADDR)
@@ -23,7 +23,7 @@ class Server(Network):
         self.conn_clients = []
         self.messages = []
 
-     def _handle_client(self, conn, addr):
+    def _handle_client(self, conn, addr):
         print(f"[NEW CONNECTION] {addr} connected.")
 
         self.connected = True
@@ -40,7 +40,7 @@ class Server(Network):
 
         conn.close()
 
-     def _start(self):
+    def _start(self):
         self.server.listen()
         print(f"[LISTENING] Server is listening on {self.IP}")
         while True:
@@ -53,31 +53,31 @@ class Server(Network):
         print("[STARTING] server is starting...")
 
 
-     def start (self) :
-          thread = threading.Thread(target=self._start)
-          thread.start()
+    def start (self) :
+        thread = threading.Thread(target=self._start)
+        thread.start()
 
 
-     def get_conn_clients(self):
+    def get_conn_clients(self):
         return self.conn_clients
 
-     def send(self, conn, msg):
+    def send(self, conn, msg):
         conn.send(msg.encode(self.FORMAT))
 
-     def get_messages(self):
+    def get_messages(self):
         return self.messages
 
 
 class Client(Network):
 
-     def __init__(self):
+    def __init__(self):
         super().__init__()
         self.client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
-     def connect(self):
+    def connect(self):
         self.client.connect(self.ADDR)
 
-     def send(self, msg):
+    def send(self, msg):
         message = msg.encode(self.FORMAT)
         msg_length = len(message)
         send_length = str(msg_length).encode(self.FORMAT)
@@ -86,9 +86,9 @@ class Client(Network):
         self.client.send(message)
         print(self.client.recv(2048).decode(self.FORMAT))
 
-     def disconnect(self):
+    def disconnect(self):
         send(self.DISCONNECT_MESSAGE)
 
-     def recv(self):
+    def recv(self):
         msg = self.client.recv(2048).decode(self.FORMAT)
         return msg

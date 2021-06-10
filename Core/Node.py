@@ -10,7 +10,7 @@ class Node:
         self.alpha = -math.inf
         self.beta = math.inf
         self.gameState: list = None 
-        self.bestMoveIndex : int =None
+        self.bestMoveIndex : int = None
         self.score :int = None 
        
     @property
