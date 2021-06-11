@@ -50,6 +50,9 @@ def main():
                             pB=PlayerType.HUMAN,
                             player_number=PlayerNumber.PLAYERB)
         game.start()
+    elif mode == "4":
+        game = AIController.load()
+        game.start()
     pygame.quit()
 
 main()

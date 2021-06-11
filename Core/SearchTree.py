@@ -25,7 +25,6 @@ class SearchTree:
             self.currentNode = self.currentNode.children[index]
 
     def make_optimal_move(self) -> int:
-
         if self.currentNode.children is None:
           t = TreeCreator()
           t.create_tree(self.currentNode)
@@ -63,22 +62,26 @@ class SearchTree:
         return allEmpty
 
 
-    def save() -> None:
+    def save(self) -> None:
         """
         save current game to a pickle file
         """
-        path = os.path.join(os.getcwd(), 'mancalaGame.pickle')
+        path = os.path.join(os.getcwd(), 'mancalaGame.gg')
         with open(path, 'wb') as handle: pickle.dump(self.currentNode, 
         handle, protocol=pickle.HIGHEST_PROTOCOL)
-    
-    def load(path=os.path.join(os.getcwd(), 'mancalaGame.pickle')) -> Node:
+        print("game saved")
+
+    @staticmethod
+    def load(path=os.path.join(os.getcwd(), 'mancalaGame.gg')) -> Node:
         """
         loads a game from a pickle file
         """
         # path = os.path.join(os.getcwd(), 'mancalaGame.pickle')
+        s = SearchTree()
         with open(path, 'rb') as handle:
             out = pickle.load(handle)
 
-        self.root = self.currentNode = out
+        s.root = s.currentNode = out
         treeCreator = TreeCreator()
-        treeCreator.create_tree(self.currentNode)
+        treeCreator.create_tree(s.currentNode)
+        return s

@@ -5,6 +5,7 @@ from Core.SearchTree import SearchTree
 from Core.TreeCreator import TreeCreator
 from Core.Enums import MaxMinPlayer
 from Utility.logger import Logger
+import json
 
 class Player:
     PLAYERA = 0
@@ -95,9 +96,12 @@ class AIController:
                     run = False
                 elif event.type == pygame.MOUSEBUTTONDOWN:
                     if self.current_player_type == PlayerType.HUMAN:
-                        if self.check_game_finished(): return
                         self.process_pocket_click()
-                        
+                        self.check_game_finished()
+                elif event.type == pygame.KEYDOWN:
+                    if event.key == pygame.K_s:
+                        self.game_tree.save()
+                        self.save()
 
     def check_player_turn(self, selected_pocket:Pocket):
         return (selected_pocket.name[0] == "B" and self.player_number == MaxMinPlayer.MAX_PLAYER) or \
@@ -119,14 +123,18 @@ class AIController:
                 else: self.current_player_type = PlayerType.HUMAN
 
         if self.current_player_type == PlayerType.AI:
-            if self.check_game_finished(): return
-            i = self.game_tree.make_optimal_move()
-            self.log("AI: " + self.pockets[i].name)
-            self.__set_pockets_vals()
-            self.update_board()
+            if not self.game_tree.is_game_finished():
+                i = self.game_tree.make_optimal_move()
+                self.log("AI: " + self.pockets[i].name)
+                self.__set_pockets_vals()
+                self.update_board()
+                self.check_game_finished()
 
     def check_game_finished(self):
-        print("game finished")
+        if self.game_tree.is_game_finished():
+            print("game finished")
+            self.mancala_board.game_ended()
+
 
     def process_pocket_click(self):
         pos = pygame.mouse.get_pos()
@@ -166,6 +174,38 @@ class AIController:
             print("Callback move happended")
             pocket = self.get_pocket_by_name(pocket_name[5:])
             self.process_move(pocket)
+
+    def save(self, path="mancala_settings.cfg"):
+        save = {
+            "game_type": self.game_type,
+            "player_number": self.player_number,
+            "last_player": self.last_player,
+            "current_player_type": self.current_player_type,
+            "current_player": self.mancala_board.get_current_player()
+        }
+        j_str = json.dumps(save)
+        f = open(path, "w")
+        f.writelines(j_str)
+        f.close()
+
+    @staticmethod
+    def load(path="mancala_settings.cfg"):
+        ctrl_obj = AIController()
+        f = open(path, "r")
+        lines = f.readlines()
+        f.close()
+        j_str = "".join(lines)
+        print(j_str)
+        loaded = json.loads(j_str)
+        ctrl_obj.game_type = loaded["game_type"]
+        ctrl_obj.player_number = loaded["player_number"]
+        ctrl_obj.last_player = loaded["last_player"]
+        ctrl_obj.current_player_type = loaded["current_player_type"]
+        ctrl_obj.mancala_board.set_current_player(loaded["current_player"])
+        ctrl_obj.game_tree = SearchTree.load()
+        ctrl_obj.__set_pockets_vals()
+        ctrl_obj.mancala_board.render_board()
+        return ctrl_obj
 
 
 

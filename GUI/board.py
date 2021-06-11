@@ -39,3 +39,11 @@ class Board:
     
     def set_current_player(self, player):
         self.__current_player = player
+
+    def get_current_player(self):
+        return self.__current_player
+
+    def game_ended(self):
+        area = self.__font.render("Game Finished", False, (255, 255, 255))
+        self.__screen.blit(area, (290, 400))
+        pygame.display.flip()
