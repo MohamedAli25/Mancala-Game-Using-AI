@@ -1,4 +1,4 @@
-from Core.AlphaBetaPruning import Pruner
+from AlphaBetaPruning import Pruner
 from Enums import MaxMinPlayer
 from Node import Node
 from TreeCreator import TreeCreator
@@ -20,8 +20,11 @@ class SearchTree:
 
     def make_optimal_move(self) -> None:
         if self.currentNode.bestMoveIndex is None:
+            #print('pruner goin to run')
             Pruner(self.currentNode)
         assert self.currentNode.bestMoveIndex is not None
+        #print(self.currentNode.bestMoveIndex)
+        #print(self.currentNode.children)
         self.currentNode = self.currentNode.children[self.currentNode.bestMoveIndex]
 
     def get_game_state(self):
