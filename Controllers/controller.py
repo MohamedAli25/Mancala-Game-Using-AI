@@ -14,6 +14,7 @@ class PlayerType:
     HUMAN = "Human"
     NETWORK = "Network"
 
+
 class GameType:
     AI_HUMAN_MODE = 0
     NETWORK_HUMAN_MODE = 1
@@ -21,9 +22,11 @@ class GameType:
     NETWORK_AI_MODE = 3
     AI_AI_MODE = 4
 
+
 class PlayerNumber:
     PLAYERA = MaxMinPlayer.MIN_PLAYER
     PLAYERB = MaxMinPlayer.MAX_PLAYER
+
 
 class AIController:
     def __init__(
@@ -32,7 +35,6 @@ class AIController:
         current_player_type:PlayerType = PlayerType.HUMAN,
         player_number = PlayerNumber.PLAYERB,
         network_notify_cb = print,
-        play_first = True,
         pA = "",
         pB = ""
     ):
@@ -58,6 +60,7 @@ class AIController:
         self.game_tree = SearchTree(MaxMinPlayer.MAX_PLAYER)
         self.game_type = game_type
         self.player_number = player_number
+        self.last_player = None
         self.current_player_type = current_player_type
         self.__set_pockets_vals()
         self.mancala_board.set_current_player("Player B")
@@ -94,7 +97,7 @@ class AIController:
                         
 
     def check_player_turn(self, selected_pocket:Pocket):
-        return  (selected_pocket.name[0] == "B" and self.player_number == MaxMinPlayer.MAX_PLAYER) or \
+        return (selected_pocket.name[0] == "B" and self.player_number == MaxMinPlayer.MAX_PLAYER) or \
                 (selected_pocket.name[0] == "A" and self.player_number == MaxMinPlayer.MIN_PLAYER)        
 
     def get_pocket_by_name(self, name) -> Pocket:
@@ -102,19 +105,21 @@ class AIController:
             if p.name == name: return p
 
     def process_next_player_type(self):
-        # if self.player_number == self.game_tree.get_current_player_number():
-        #     print("bitch")
-        #     return
-        if self.game_type == GameType.HUMAN_MODE:
-            self.current_player_type = PlayerType.HUMAN
-        elif self.game_type == GameType.AI_HUMAN_MODE:
-            if self.current_player_type == PlayerType.HUMAN: self.current_player_type = PlayerType.AI
-            else: self.current_player_type = PlayerType.HUMAN
-        elif self.game_type == GameType.NETWORK_HUMAN_MODE:
-            if self.current_player_type == PlayerType.HUMAN: self.current_player_type = PlayerType.NETWORK
-            else: self.current_player_type = PlayerType.HUMAN
-        print(self.current_player_type)
-                    
+        if self.last_player != self.player_number:
+            if self.game_type == GameType.HUMAN_MODE:
+                self.current_player_type = PlayerType.HUMAN
+            elif self.game_type == GameType.AI_HUMAN_MODE:
+                if self.current_player_type == PlayerType.HUMAN: self.current_player_type = PlayerType.AI
+                else: self.current_player_type = PlayerType.HUMAN
+            elif self.game_type == GameType.NETWORK_HUMAN_MODE:
+                if self.current_player_type == PlayerType.HUMAN: self.current_player_type = PlayerType.NETWORK
+                else: self.current_player_type = PlayerType.HUMAN
+
+        if self.current_player_type == PlayerType.AI:
+            self.game_tree.make_optimal_move()
+            self.__set_pockets_vals()
+            self.update_board()
+
     def process_pocket_click(self):
         pos = pygame.mouse.get_pos()
         pocket = self.get_selected_pocket(pos)
@@ -128,7 +133,10 @@ class AIController:
         if self.game_type == GameType.NETWORK_HUMAN_MODE and self.current_player_type != PlayerType.NETWORK:
             self.notify_move(pocket.name)
         self.__set_pockets_vals()
-        
+        self.update_board()
+
+    def update_board(self):
+        self.last_player = self.player_number
         self.player_number = self.game_tree.get_current_player_number()
 
         if self.player_number == MaxMinPlayer.MAX_PLAYER:
@@ -149,7 +157,6 @@ class AIController:
             print("Callback move happended")
             pocket = self.get_pocket_by_name(pocket_name[5:])
             self.process_move(pocket)
-
 
 
 

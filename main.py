@@ -43,7 +43,13 @@ def main():
                                     player_number=PlayerNumber.PLAYERA)
             client.recv(callback=game.callback_move)
             game.start()
-
+    elif mode == "3":
+        game = AIController(game_type=GameType.AI_HUMAN_MODE,
+                            current_player_type=PlayerType.HUMAN,
+                            pA=PlayerType.AI,
+                            pB=PlayerType.HUMAN,
+                            player_number=PlayerNumber.PLAYERB)
+        game.start()
     pygame.quit()
 
 main()

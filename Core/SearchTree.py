@@ -23,13 +23,22 @@ class SearchTree:
             self.currentNode = self.currentNode.children[index]
 
     def make_optimal_move(self) -> None:
+        if self.currentNode.children is None:
+          t = TreeCreator()
+          t.create_tree(self.currentNode)
+
         if self.currentNode.bestMoveIndex is None:
             #print('pruner goin to run')
             Pruner(self.currentNode)
         assert self.currentNode.bestMoveIndex is not None
         #print(self.currentNode.bestMoveIndex)
         #print(self.currentNode.children)
+        best_move_index = self.currentNode.bestMoveIndex
         self.currentNode = self.currentNode.children[self.currentNode.bestMoveIndex]
+        return best_move_index
+
+    def is_game_finished(self):
+        return len(list(self.currentNode.children.keys())) == 0
 
     def get_game_state(self):
         return self.currentNode.gameState
@@ -38,25 +47,3 @@ class SearchTree:
         return self.currentNode.playerType
 
 
-if __name__ == "__main__":
-    searchTree = SearchTree()
-    treeCreator = TreeCreator()
-    treeCreator.create_tree(searchTree.currentNode)
-    print(searchTree.currentNode.children)
-    print(searchTree.get_game_state())
-    print(searchTree.currentNode.playerType)
-    # searchTree.make_move(5)
-    searchTree.make_optimal_move()
-    print(searchTree.currentNode.children)
-    print(searchTree.get_game_state())
-    print(searchTree.currentNode.playerType)
-    # searchTree.make_move(9)
-    searchTree.make_optimal_move()
-    print(searchTree.currentNode.children)
-    print(searchTree.get_game_state())
-    print(searchTree.currentNode.playerType)
-    # searchTree.make_move(1)
-    searchTree.make_optimal_move()
-    print(searchTree.currentNode.children)
-    print(searchTree.get_game_state())
-    print(searchTree.currentNode.playerType)

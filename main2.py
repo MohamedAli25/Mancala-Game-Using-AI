@@ -1,9 +1,25 @@
-import pygame
-from Controllers.controller import AIController
+from Core.SearchTree import SearchTree
+from Core.TreeCreator import TreeCreator
 
-pygame.init()
-pygame.font.init()
-
-pygame.display.set_caption("MANCALA!")
-game = AIController()
-game.start()
+if __name__ == "__main__":
+    searchTree = SearchTree()
+    treeCreator = TreeCreator()
+    treeCreator.create_tree(searchTree.currentNode)
+    print(searchTree.currentNode.children)
+    print(searchTree.get_game_state())
+    print(searchTree.currentNode.playerType)
+    # searchTree.make_move(5)
+    searchTree.make_optimal_move()
+    print(searchTree.currentNode.children)
+    print(searchTree.get_game_state())
+    print(searchTree.currentNode.playerType)
+    # searchTree.make_move(9)
+    searchTree.make_optimal_move()
+    print(searchTree.currentNode.children)
+    print(searchTree.get_game_state())
+    print(searchTree.currentNode.playerType)
+    # searchTree.make_move(1)
+    searchTree.make_optimal_move()
+    print(searchTree.currentNode.children)
+    print(searchTree.get_game_state())
+    print(searchTree.currentNode.playerType)
