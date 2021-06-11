@@ -1,4 +1,4 @@
-from Enums import Difficulty, GameMode
+from Core.Enums import Difficulty, GameMode
 
 
 class Settings:

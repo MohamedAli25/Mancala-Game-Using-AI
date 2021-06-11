@@ -1,6 +1,6 @@
-from Enums import MaxMinPlayer, GameMode
-from Node import Node
-from Settings import Settings
+from Core.Enums import MaxMinPlayer, GameMode
+from Core.Node import Node
+from Core.Settings import Settings
 
 
 class TreeCreator:

@@ -1,7 +1,7 @@
-from AlphaBetaPruning import Pruner
-from Enums import MaxMinPlayer
-from Node import Node
-from TreeCreator import TreeCreator
+from Core.AlphaBetaPruning import Pruner
+from Core.Enums import MaxMinPlayer
+from Core.Node import Node
+from Core.TreeCreator import TreeCreator
 
 
 class SearchTree:

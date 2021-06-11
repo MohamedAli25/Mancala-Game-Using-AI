@@ -1,5 +1,5 @@
-from Enums import *
-from Node import Node
+from Core.Enums import *
+from Core.Node import Node
 
 
 # print(sys.getrecursionlimit())
