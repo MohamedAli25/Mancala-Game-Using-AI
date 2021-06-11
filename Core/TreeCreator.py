@@ -30,7 +30,7 @@ class TreeCreator:
                         newGameState[currentIndex] += 1
                         numOfStones -= 1
                     newNode.playerType = MaxMinPlayer.MAX_PLAYER if currentIndex == 6 else MaxMinPlayer.MIN_PLAYER
-                    if 0 <= currentIndex <= 5 and newGameState[currentIndex] == 1\
+                    if 0 <= currentIndex <= 5 and newGameState[currentIndex] == 1 \
                             and self.__gameMode is GameMode.STEALING:
                         oppositeIndex = 12 - currentIndex
                         newGameState[6] += newGameState[currentIndex]

@@ -1,18 +1,19 @@
 import math
+
 from Enums import MaxMinPlayer
 
 
 class Node:
     def __init__(self) -> None:
         self.parrentNode: Node = None
-        self.children: list[Node] = None##list instead of dict
+        self.children: dict = None  ##list instead of dict
         self.playerType = MaxMinPlayer.MAX_PLAYER
         self.alpha = -math.inf
         self.beta = math.inf
-        self.gameState: list = None 
-        self.bestMoveIndex : int = None
-        self.score :int = None 
-       
+        self.gameState: list = None
+        self.bestMoveIndex: int = None
+        self.score: int = None
+
     @property
     def getScore_playerA(self) -> int:
         return self.gameState[6]

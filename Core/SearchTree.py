@@ -1,3 +1,4 @@
+from Core.AlphaBetaPruning import Pruner
 from Enums import MaxMinPlayer
 from Node import Node
 from TreeCreator import TreeCreator
@@ -17,6 +18,12 @@ class SearchTree:
             assert 7 <= index <= 12
         self.currentNode = self.currentNode.children[index]
 
+    def make_optimal_move(self) -> None:
+        if self.currentNode.bestMoveIndex is None:
+            Pruner(self.currentNode)
+        assert self.currentNode.bestMoveIndex is not None
+        self.currentNode = self.currentNode.children[self.currentNode.bestMoveIndex]
+
     def get_game_state(self):
         return self.currentNode.gameState
 
@@ -28,15 +35,18 @@ if __name__ == "__main__":
     print(searchTree.currentNode.children)
     print(searchTree.get_game_state())
     print(searchTree.currentNode.playerType)
-    searchTree.make_move(5)
+    # searchTree.make_move(5)
+    searchTree.make_optimal_move()
     print(searchTree.currentNode.children)
     print(searchTree.get_game_state())
     print(searchTree.currentNode.playerType)
-    searchTree.make_move(9)
+    # searchTree.make_move(9)
+    searchTree.make_optimal_move()
     print(searchTree.currentNode.children)
     print(searchTree.get_game_state())
     print(searchTree.currentNode.playerType)
-    searchTree.make_move(1)
+    # searchTree.make_move(1)
+    searchTree.make_optimal_move()
     print(searchTree.currentNode.children)
     print(searchTree.get_game_state())
     print(searchTree.currentNode.playerType)

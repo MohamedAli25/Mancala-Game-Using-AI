@@ -52,11 +52,9 @@ class Server(Network):
             print(f"[ACTIVE CONNECTIONS] {threading.activeCount() - 1}")
         print("[STARTING] server is starting...")
 
-
-    def start (self) :
+    def start(self):
         thread = threading.Thread(target=self._start)
         thread.start()
-
 
     def get_conn_clients(self):
         return self.conn_clients
