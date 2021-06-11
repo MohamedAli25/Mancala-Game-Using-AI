@@ -9,7 +9,8 @@ from GUI.controller import MancalaController
 
 def main():
     pygame.init()
-    mode = input("Select Game Mode: 1-Human vs. Human  2-Human vs. Human (Network)")
+    print("Select Game Mode: \n\t1-Human vs. Human  \n\t2-Human vs. Human (Network) \n\t3- Human vs. AI \n\t4-Load")
+    mode = input()
     if mode == "1":
             pygame.display.set_caption("MANCALA!")
             game = AIController(pA=PlayerType.HUMAN,
