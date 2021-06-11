@@ -24,7 +24,8 @@ class SearchTree:
         if index in self.currentNode.children:
             self.currentNode = self.currentNode.children[index]
 
-    def make_optimal_move(self) -> None:
+    def make_optimal_move(self) -> int:
+
         if self.currentNode.children is None:
           t = TreeCreator()
           t.create_tree(self.currentNode)
@@ -40,13 +41,26 @@ class SearchTree:
         return best_move_index
 
     def is_game_finished(self):
-        return len(list(self.currentNode.children.keys())) == 0
+        return self.__is_game_state_finished(self.currentNode.gameState)
 
     def get_game_state(self):
         return self.currentNode.gameState
     
     def get_current_player_number(self):
         return self.currentNode.playerType
+
+    def __is_game_state_finished(self, gameState: list):
+        allEmpty = True
+        for i in range(6):
+            if gameState[i] > 0:
+                allEmpty = False
+        if allEmpty:
+            return True
+        allEmpty = True
+        for i in range(7, 13):
+            if gameState[i] > 0:
+                allEmpty = False
+        return allEmpty
 
 
     def save() -> None:

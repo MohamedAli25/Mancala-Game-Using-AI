@@ -4,6 +4,7 @@ from GUI.pocket import Pocket
 from Core.SearchTree import SearchTree
 from Core.TreeCreator import TreeCreator
 from Core.Enums import MaxMinPlayer
+from Utility.logger import Logger
 
 class Player:
     PLAYERA = 0
@@ -66,6 +67,7 @@ class AIController:
         self.mancala_board.set_current_player("Player B")
         self.mancala_board.render_board()
         self.network_notify = network_notify_cb
+        self.log = Logger()
     
     def __set_pockets_vals(self):
         game_state = self.game_tree.get_game_state()
@@ -93,6 +95,7 @@ class AIController:
                     run = False
                 elif event.type == pygame.MOUSEBUTTONDOWN:
                     if self.current_player_type == PlayerType.HUMAN:
+                        if self.check_game_finished(): return
                         self.process_pocket_click()
                         
 
@@ -116,14 +119,20 @@ class AIController:
                 else: self.current_player_type = PlayerType.HUMAN
 
         if self.current_player_type == PlayerType.AI:
-            self.game_tree.make_optimal_move()
+            if self.check_game_finished(): return
+            i = self.game_tree.make_optimal_move()
+            self.log("AI: " + self.pockets[i].name)
             self.__set_pockets_vals()
             self.update_board()
+
+    def check_game_finished(self):
+        print("game finished")
 
     def process_pocket_click(self):
         pos = pygame.mouse.get_pos()
         pocket = self.get_selected_pocket(pos)
         if pocket is not None and self.check_player_turn(pocket):
+            self.log("Human: " + pocket.name)
             self.process_move(pocket)
     
     def process_move(self, pocket:Pocket):
