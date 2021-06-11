@@ -19,22 +19,22 @@ class SearchTree:
         else:
             assert 7 <= index <= 12
         if self.currentNode.children is None:
-          t = TreeCreator()
-          t.create_tree(self.currentNode)
+            t = TreeCreator()
+            t.create_tree(self.currentNode)
         if index in self.currentNode.children:
             self.currentNode = self.currentNode.children[index]
 
     def make_optimal_move(self) -> int:
         if self.currentNode.children is None:
-          t = TreeCreator()
-          t.create_tree(self.currentNode)
+            t = TreeCreator()
+            t.create_tree(self.currentNode)
 
         if self.currentNode.bestMoveIndex is None:
-            #print('pruner goin to run')
+            # print('pruner goin to run')
             Pruner(self.currentNode)
         assert self.currentNode.bestMoveIndex is not None
-        #print(self.currentNode.bestMoveIndex)
-        #print(self.currentNode.children)
+        # print(self.currentNode.bestMoveIndex)
+        # print(self.currentNode.children)
         best_move_index = self.currentNode.bestMoveIndex
         self.currentNode = self.currentNode.children[self.currentNode.bestMoveIndex]
         return best_move_index
@@ -44,7 +44,7 @@ class SearchTree:
 
     def get_game_state(self):
         return self.currentNode.gameState
-    
+
     def get_current_player_number(self):
         return self.currentNode.playerType
 
@@ -61,14 +61,16 @@ class SearchTree:
                 allEmpty = False
         return allEmpty
 
-
     def save(self) -> None:
         """
         save current game to a pickle file
         """
         path = os.path.join(os.getcwd(), 'mancalaGame.gg')
-        with open(path, 'wb') as handle: pickle.dump(self.currentNode, 
-        handle, protocol=pickle.HIGHEST_PROTOCOL)
+        with open(path, 'wb') as handle: pickle.dump({
+            "state": self.currentNode.gameState,
+            "playerType": 1 if self.currentNode.playerType is MaxMinPlayer.MAX_PLAYER else 0
+        },
+                                                     handle, protocol=pickle.HIGHEST_PROTOCOL)
         print("game saved")
 
     @staticmethod
@@ -77,11 +79,14 @@ class SearchTree:
         loads a game from a pickle file
         """
         # path = os.path.join(os.getcwd(), 'mancalaGame.pickle')
-        s = SearchTree()
+        searchTree = SearchTree()
         with open(path, 'rb') as handle:
-            out = pickle.load(handle)
-
-        s.root = s.currentNode = out
+            data = pickle.load(handle)
+        
+        searchTree.root = Node()
+        searchTree.currentNode = searchTree.root
+        searchTree.root.gameState = data["state"]
+        searchTree.root.playerType = MaxMinPlayer.MAX_PLAYER if data["playerType"] == 1 else MaxMinPlayer.MIN_PLAYER
         treeCreator = TreeCreator()
-        treeCreator.create_tree(s.currentNode)
-        return s
+        treeCreator.create_tree(searchTree.currentNode)
+        return searchTree
