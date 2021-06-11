@@ -1,6 +1,5 @@
 import math
-
-from Enums import MaxMinPlayer
+from Core.Enums import MaxMinPlayer
 
 
 class Node:

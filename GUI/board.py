@@ -11,6 +11,7 @@ class Board:
         self.__font = font
         self.__playera = pA
         self.__playerb = pB
+        self.__current_player = ""
         if objects is not None: self.add_objects(objects)
 
     def add_object(self, object) -> None:
@@ -32,7 +33,9 @@ class Board:
         self.__screen.blit(area, (50, 50))
         area =  self.__font.render("Player B: " + self.__playerb, False, (255, 255, 255))
         self.__screen.blit(area, (50, 90))
-        area =  self.__font.render("Current Player : " + self.__playerb, False, (255, 255, 255))
+        area =  self.__font.render("Current Player : " + self.__current_player, False, (255, 255, 255))
         self.__screen.blit(area, (350, 50))
-
         pygame.display.flip()
+    
+    def set_current_player(self, player):
+        self.__current_player = player

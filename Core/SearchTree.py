@@ -5,18 +5,22 @@ from TreeCreator import TreeCreator
 
 
 class SearchTree:
-    def __init__(self) -> None:
+    def __init__(self, playerType=MaxMinPlayer.MAX_PLAYER) -> None:
         self.root = Node()
         self.currentNode: Node = self.root
         self.root.gameState = [4, 4, 4, 4, 4, 4, 0, 4, 4, 4, 4, 4, 4, 0]
-        self.root.playerType = MaxMinPlayer.MAX_PLAYER
+        self.root.playerType = playerType
 
     def make_move(self, index) -> None:
         if self.currentNode.playerType is MaxMinPlayer.MAX_PLAYER:
             assert 0 <= index <= 5
         else:
             assert 7 <= index <= 12
-        self.currentNode = self.currentNode.children[index]
+        if self.currentNode.children is None:
+          t = TreeCreator()
+          t.create_tree(self.currentNode)
+        if index in self.currentNode.children:
+            self.currentNode = self.currentNode.children[index]
 
     def make_optimal_move(self) -> None:
         if self.currentNode.bestMoveIndex is None:
@@ -29,6 +33,9 @@ class SearchTree:
 
     def get_game_state(self):
         return self.currentNode.gameState
+    
+    def get_current_player_number(self):
+        return self.currentNode.playerType
 
 
 if __name__ == "__main__":
