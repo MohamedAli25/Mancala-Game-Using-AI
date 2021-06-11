@@ -5,7 +5,14 @@ from Core.Enums import MaxMinPlayer
 class Node:
     def __init__(self) -> None:
         self.parrentNode: Node = None
-        self.children: dict = None  
+        """
+        {
+            0: Node(),
+            1: Node(),
+            ....
+        }
+        """
+        self.children: dict = None
         self.playerType = MaxMinPlayer.MAX_PLAYER
         self.alpha = -math.inf
         self.beta = math.inf
