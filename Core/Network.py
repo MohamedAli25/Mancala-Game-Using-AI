@@ -92,8 +92,6 @@ class Client(Network):
     def disconnect(self):
         self.send(self.DISCONNECT_MESSAGE)
 
-        send(self.DISCONNECT_MESSAGE)
-
     def recv(self):
         msg = self.client.recv(2048).decode(self.FORMAT)
         return msg
