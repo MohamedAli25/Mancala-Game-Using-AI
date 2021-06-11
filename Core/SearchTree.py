@@ -2,6 +2,8 @@ from Core.AlphaBetaPruning import Pruner
 from Core.Enums import MaxMinPlayer
 from Core.Node import Node
 from Core.TreeCreator import TreeCreator
+import os
+import pickle
 
 
 class SearchTree:
@@ -47,3 +49,22 @@ class SearchTree:
         return self.currentNode.playerType
 
 
+    def save() -> None:
+        """
+        save current game to a pickle file
+        """
+        path = os.path.join(os.getcwd(), 'mancalaGame.pickle')
+        with open(path, 'wb') as handle: pickle.dump(self.currentNode, 
+        handle, protocol=pickle.HIGHEST_PROTOCOL)
+    
+    def load(path=os.path.join(os.getcwd(), 'mancalaGame.pickle')) -> Node:
+        """
+        loads a game from a pickle file
+        """
+        # path = os.path.join(os.getcwd(), 'mancalaGame.pickle')
+        with open(path, 'rb') as handle:
+            out = pickle.load(handle)
+
+        self.root = self.currentNode = out
+        treeCreator = TreeCreator()
+        treeCreator.create_tree(self.currentNode)
