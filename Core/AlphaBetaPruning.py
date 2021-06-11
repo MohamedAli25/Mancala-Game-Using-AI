@@ -3,9 +3,13 @@ from Node import Node
 
 
 # print(sys.getrecursionlimit())
+
+
+
 class Pruner:
     def __init__(self, node: Node):
         self.root = node
+        self._updateLeavesScore(self.root)
         self._run_pruning(self.root)
         self.update_bestMoveInd()
 
@@ -13,7 +17,7 @@ class Pruner:
 
         if current.children is not None:
 
-            for child in current.children:
+            for child in list(current.children.values()):
                 # look ahead for leaf nodes
                 if child.children is not None:
                     child.alpha = current.alpha
@@ -22,7 +26,7 @@ class Pruner:
                     self._run_pruning(child)
                 else:
                     # children of this node are leaves
-                    for leaf in current.children:
+                    for leaf in list(current.children.values()):
                         self._update_node(current, leaf)
                         # cutoff handling
                         if current.alpha >= current.beta:
@@ -32,9 +36,11 @@ class Pruner:
                     # update alpha and beta for parent node
                     self._update_parent_node(current)
                     # cutoff handling
-                    if current.parrentNode.alpha >= current.parrentNode.beta:
-                        # print('cut2!')
-                        break
+                    try :
+                        if current.parrentNode.alpha >= current.parrentNode.beta:
+                            # print('cut2!')
+                            break
+                    except: pass
             # update alpha and beta for parent node
             self._update_parent_node(current)
             # cutoff handling
@@ -86,19 +92,28 @@ class Pruner:
     def _update_bestMoveInd(self, current):
 
         try:
-            for index, child in enumerate(current.children):
+            for index, child in enumerate(list(current.children.values())):
 
                 self._update_bestMoveInd(child)
                 if current.playerType == MaxMinPlayer.MAX_PLAYER:
-                    if current.bestMoveIndex is None or (child.score > current.children[current.bestMoveIndex].score):
-                        current.bestMoveIndex = index
+                    if current.bestMoveIndex is None or (child.score > list(current.children.values())[current.bestMoveIndex].score):
+                        current.bestMoveIndex = list(current.children.keys())[index]
                 else:
-                    if current.bestMoveIndex is None or (child.score < current.children[current.bestMoveIndex].score):
-                        current.bestMoveIndex = index
+                    if current.bestMoveIndex is None or (child.score < list(current.children.values())[current.bestMoveIndex].score):
+                        current.bestMoveIndex = list(current.children.keys())[index]
 
         except:
             pass
-
+    
+    def _updateLeavesScore (self , node):
+        
+        if node.children is None : 
+            node.score = node.get_score()
+            #print ("here",node.children)
+            return
+        for child in list(node.children.values()) : 
+            self._updateLeavesScore(child)
+            
 
 # driver
 if __name__ == '__main__':
