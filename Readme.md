@@ -37,8 +37,7 @@ AI Mancala Game from Scratch using Python
     2) restart the game 'main.exe' and choose option 4 (load)
 
 
- please give afeedback 
- 
+  
 # Contributors: 
     
  - [Mohamed Gamal](https://github.com/mgtm98)
@@ -53,3 +52,6 @@ make sure to have these packages installed before running the code:
    * pygame
    * pickle
    * json
+
+
+please give a feedback 
