@@ -42,14 +42,16 @@ https://youtu.be/4H3PcK3c7yY
  please give afeedback 
  
 # Contributors: 
-    - [Mohamed Gamal] (https://github.com/mgtm98)
-    - [Mohamed Adel]  (https://github.com/MohamedAli25)
-    - [Mahmoud Ashraf] (https://github.com/MachineCod)
-    - [Mariam Abdelrahman] (https://github.com/alien19)
-    - [Yasmin Alaa] (https://github.com/jasmin285)
+    
+ - Mohamed Gamal] (https://github.com/mgtm98)
+ - [Mohamed Adel]  (https://github.com/MohamedAli25)
+ - [Mahmoud Ashraf] (https://github.com/MachineCod)
+ - [Mariam Abdelrahman] (https://github.com/alien19)
+ - [Yasmin Alaa] (https://github.com/jasmin285)
 
 # For contributing:
 make sure to have these packages installed before running the code:
-    * pygame
-    * pickle
-    * json
+    
+    - pygame
+    - pickle
+    - json
