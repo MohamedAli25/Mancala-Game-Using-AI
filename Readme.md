@@ -1,7 +1,7 @@
 AI Mancala Game from Scratch using Python
 
 # PDF Documentation:
-    - AI_report.pdf
+    - [relative link](AI_report.pdf)
 
 API documentation :
     - https://docs.google.com/document/d/1-2AvJAam7SFJWuBhT5EIOrbG4DyG-lVBvMfwdWxWw5s/edit?usp=drive_web&ouid=115019690291967606249
@@ -11,7 +11,7 @@ API documentation :
 
 
 # How to use:
-* run the exe: /main.exe  : can be found directly in the repo folder or the .zip on lms with the name main.exe
+* run the exe: [a relative link](main.exe)  : can be found directly in the repo folder or the .zip on lms with the name main.exe
 * choose the game mode:
             ![This is a alt text.](/images/game_mode.png "Choosing game mode.")
             
@@ -47,6 +47,6 @@ API documentation :
 
 # For contributing:
 make sure to have these packages installed before running the code:
-    - pygame
-    - pickle
-    - json
+    * pygame
+    * pickle
+    * json
