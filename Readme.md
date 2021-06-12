@@ -14,17 +14,17 @@ API documentation :
 * run the exe: /main.exe  : can be found directly in the repo folder or the .zip on lms with the name main.exe
 * choose the game mode:
             ![This is a alt text.](/images/game_mode.png "Choosing game mode.")
+            
 * choose the difficulty:
             ![This is a alt text.](/images/difficulty.png "Choosing game difficulty.")
 
+
     - choosing Human vs Human mode:
         ![This is a alt text.](/images/HH1.png "Human vs Human B.") |
-        
         ![This is a alt text.](/images/HH2.png "Human vs Human A.")
         
     - choosing Human vs AI mode:
         ![This is a alt text.](/images/HA1.png "Human vs AI A.") |
-        
         ![This is a alt text.](/images/HA2.png "Human vs AI B.")
 
 
