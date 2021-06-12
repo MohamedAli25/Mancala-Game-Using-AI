@@ -4,27 +4,28 @@ AI Mancala Game from Scratch using Python
   [AI_report](AI_report.pdf)
 
 API documentation :
-    - https://docs.google.com/document/d/1-2AvJAam7SFJWuBhT5EIOrbG4DyG-lVBvMfwdWxWw5s/edit?usp=drive_web&ouid=115019690291967606249
+https://docs.google.com/document/d/1-2AvJAam7SFJWuBhT5EIOrbG4DyG-lVBvMfwdWxWw5s/edit?usp=drive_web&ouid=115019690291967606249
 
 # Demonstration Video:
-    - https://youtu.be/4H3PcK3c7yY
+https://youtu.be/4H3PcK3c7yY
 
 
 # How to use:
-* run the exe: [main.exe](main.exe)  : can be found directly in the repo folder or the .zip on lms with the name main.exe
-* choose the game mode:
+1) run the exe: [main.exe](main.exe)  : can be found directly in the repo folder or the .zip on lms with the name main.exe
+
+2) choose the game mode:
 ![This is a alt text.](/images/game_mode.png "Choosing game mode.")
 
 
     * choosing Human vs Human mode:
-        ![This is a alt text.](/images/HH1.png "Human vs Human B.") |
-        ![This is a alt text.](/images/HH2.png "Human vs Human A.")
+![This is a alt text.](/images/HH1.png "Human vs Human B.") |
+![This is a alt text.](/images/HH2.png "Human vs Human A.")
         
     * choosing Human vs AI mode:
-        ![This is a alt text.](/images/HA1.png "Human vs AI A.") | ![This is a alt text.](/images/HA2.png "Human vs AI B.")
+![This is a alt text.](/images/HA1.png "Human vs AI A.") | ![This is a alt text.](/images/HA2.png "Human vs AI B.")
         
             
-* choose the difficulty:
+3) choose the difficulty:
 
             ![This is a alt text.](/images/difficulty.png "Choosing game difficulty.")
 
