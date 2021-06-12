@@ -39,12 +39,14 @@ AI Mancala Game from Scratch using Python
 
   
 # Contributors: 
-    
- - [Mohamed Gamal](https://github.com/mgtm98)
- - [Mohamed Adel](https://github.com/MohamedAli25)
- - [Mahmoud Ashraf](https://github.com/MachineCod)
- - [Mariam Abdelrahman](https://github.com/alien19)
- - [Yasmin Alaa](https://github.com/jasmin285)
+   | Contributer  | Contribution desciption | 
+   | ------------- |:-------------:|
+   | [Mohamed Gamal](https://github.com/mgtm98)           | Controller class & integration    |
+   | [Mohamed Adel](https://github.com/MohamedAli25)      | TreeCreator class |
+   | [Mahmoud Ashraf](https://github.com/MachineCod)      | Pruner class      |
+   | [Mariam Abdelrahman](https://github.com/alien19)     | SearchTree class  |
+   | [Yasmin Alaa](https://github.com/jasmin285)          |        GUI        |
+
 
 # For contributing:
 make sure to have these packages installed before running the code:
