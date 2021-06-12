@@ -2,11 +2,9 @@ AI Mancala Game from Scratch using Python
 
 ## PDF Documentation: [AI_report](AI_report.pdf)
 
-## API documentation:
-https://docs.google.com/document/d/1-2AvJAam7SFJWuBhT5EIOrbG4DyG-lVBvMfwdWxWw5s/edit?usp=drive_web&ouid=115019690291967606249
+## API documentation: https://docs.google.com/document/d/1-2AvJAam7SFJWuBhT5EIOrbG4DyG-lVBvMfwdWxWw5s/edit?usp=sharing
 
-## Demonstration Video:
-https://youtu.be/4H3PcK3c7yY
+## Demonstration Video: https://youtu.be/4H3PcK3c7yY
 
 
 # How to use:
@@ -18,12 +16,12 @@ https://youtu.be/4H3PcK3c7yY
 
    * choosing Human vs Human mode:
     
-   ![This is a alt text.](/images/HH1.png "Human vs Human B.") |
-   ![This is a alt text.](/images/HH2.png "Human vs Human A.")
+   ![This is a alt text.](/images/HH1.png "Human vs Human B's turn(lower row).") |
+   ![This is a alt text.](/images/HH2.png "Human vs Human A's turn(upper row).")
         
    * choosing Human vs AI mode:
     
-   ![This is a alt text.](/images/HA1.png "Human vs AI A.") | ![This is a alt text.](/images/HA2.png "Human vs AI B.")
+   ![This is a alt text.](/images/HA1.png "Human vs AI A's turn(upper row)") | ![This is a alt text.](/images/HA2.png "Human vs AI B's turn(lower row)")
         
             
 3) choose the difficulty:
@@ -35,8 +33,8 @@ https://youtu.be/4H3PcK3c7yY
 
 * the game also supports saving and loading :
         
-    1- press 's' on keyboard to save the game 
-    2- restart the game 'main.exe' and choose option 4 (load)
+    1) press 's' on keyboard to save the game 
+    2) restart the game 'main.exe' and choose option 4 (load)
 
 
  please give afeedback 
