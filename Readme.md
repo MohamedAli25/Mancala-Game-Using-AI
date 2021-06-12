@@ -14,16 +14,16 @@ https://youtu.be/4H3PcK3c7yY
 
 2) choose the game mode:
 
-![This is a alt text.](/images/game_mode.png "Choosing game mode.")
+   ![This is a alt text.](/images/game_mode.png "Choosing game mode.")
 
-    * choosing Human vs Human mode:
+   * choosing Human vs Human mode:
     
-![This is a alt text.](/images/HH1.png "Human vs Human B.") |
-![This is a alt text.](/images/HH2.png "Human vs Human A.")
+   ![This is a alt text.](/images/HH1.png "Human vs Human B.") |
+   ![This is a alt text.](/images/HH2.png "Human vs Human A.")
         
-    * choosing Human vs AI mode:
+   * choosing Human vs AI mode:
     
-![This is a alt text.](/images/HA1.png "Human vs AI A.") | ![This is a alt text.](/images/HA2.png "Human vs AI B.")
+   ![This is a alt text.](/images/HA1.png "Human vs AI A.") | ![This is a alt text.](/images/HA2.png "Human vs AI B.")
         
             
 3) choose the difficulty:
@@ -41,12 +41,12 @@ https://youtu.be/4H3PcK3c7yY
 
  please give afeedback 
  
-# Contributors : 
-    - Mohamed Gamal @mgtm98
-    - Mohamed Adel  @MohamedAli25
-    - Mahmoud Ashraf @MachineCod
-    - Mariam Abdelrahman    @alien19
-    - Yasmin Alaa   @jasmin285
+# Contributors: 
+    - [Mohamed Gamal] (https://github.com/mgtm98)
+    - [Mohamed Adel]  (https://github.com/MohamedAli25)
+    - [Mahmoud Ashraf] (https://github.com/MachineCod)
+    - [Mariam Abdelrahman] (https://github.com/alien19)
+    - [Yasmin Alaa] (https://github.com/jasmin285)
 
 # For contributing:
 make sure to have these packages installed before running the code:
