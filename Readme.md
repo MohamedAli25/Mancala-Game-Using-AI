@@ -16,12 +16,12 @@ AI Mancala Game from Scratch using Python
 
    * choosing Human vs Human mode:
     
-   ![This is a alt text.](/images/HH1.png "Human vs Human B's turn(lower row).") |
-   ![This is a alt text.](/images/HH2.png "Human vs Human A's turn(upper row).")
+   ![This is a alt text.](/images/HH1.png "HumanB's turn(lower row).") |
+   ![This is a alt text.](/images/HH2.png "HumanA's turn(upper row).")
         
    * choosing Human vs AI mode:
     
-   ![This is a alt text.](/images/HA1.png "Human vs AI A's turn(upper row)") | ![This is a alt text.](/images/HA2.png "Human vs AI B's turn(lower row)")
+   ![This is a alt text.](/images/HA1.png "AI's turn(upper row)") | ![This is a alt text.](/images/HA2.png "Human's turn(lower row)")
         
             
 3) choose the difficulty:
